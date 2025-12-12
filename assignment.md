@@ -21,6 +21,15 @@ def add_sqrt_column(df, col):
 Answer:
 
 ```python
+from pyspark.sql.functions import col, sqrt
+
+def add_sqrt_column(df, col_name):
+    """
+    Return a new DataFrame with a new column 'new_col'
+    containing the square root of the values in the given column.
+    """
+    new_df = df.withColumn("new_col", sqrt(col(col_name)))
+    return new_df
 
 ```
 
@@ -35,6 +44,13 @@ json_file = "path/to/data.json"
 Answer:
 
 ```python
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.getOrCreate()
+
+json_file = "path/to/data.json"
+
+df = spark.read.json(json_file)
 
 ```
 
@@ -52,10 +68,17 @@ filtered_df = df.filter(...)
 Answer:
 
 ```python
+from pyspark.sql.functions import col
+
+filtered_df = df.filter(
+    (col("column1") > 10) &
+    (col("column2").contains("foo"))
+)
 
 ```
 
 ## Submission
-
+Used guidance from chatgpt
+Installed spark on collab and tested
 - Submit the URL of the GitHub Repository that contains your work to NTU black board.
 - Should you reference the work of your classmate(s) or online resources, give them credit by adding either the name of your classmate or URL.
